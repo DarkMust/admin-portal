@@ -2737,6 +2737,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Transaction ID',
       'status_color_theme': 'Status Color Theme',
       'load_color_theme': 'Load Color Theme',
+      'app_locked': 'App is locked',
+      'enable_pin_lock': 'Enable PIN Lock',
+      'enable_pin_lock_help': 'Require PIN to unlock the app',
+      'pin_lock_timeout': 'PIN Lock Timeout',
+      'pin_lock_timeout_help': 'Lock the app after inactivity',
+      'change_pin': 'Change PIN',
+      'enter_pin': 'Enter PIN',
+      'enter_new_pin': 'Enter new PIN',
+      'confirm_pin': 'Confirm PIN',
+      'enter_pin_again': 'Enter PIN again',
+      'pins_do_not_match': 'PINs do not match',
+      'incorrect_pin': 'Incorrect PIN',
+      'minutes': 'minutes',
     },
     'sq': {
       'location': 'Location',
@@ -5471,6 +5484,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Transaction ID',
       'status_color_theme': 'Status Color Theme',
       'load_color_theme': 'Load Color Theme',
+      'app_locked': 'Aplikacioni është i bllokuar',
+      'enable_pin_lock': 'Aktivo Bllokimin me PIN',
+      'enable_pin_lock_help': 'Kërko PIN për të zhbllokuar aplikacionin',
+      'pin_lock_timeout': 'Koha e Bllokimit me PIN',
+      'pin_lock_timeout_help': 'Blloko aplikacionin pas pasivitetit',
+      'change_pin': 'Ndrysho PIN-in',
+      'enter_pin': 'Shkruaj PIN-in',
+      'enter_new_pin': 'Shkruaj PIN-in e ri',
+      'confirm_pin': 'Konfirmo PIN-in',
+      'enter_pin_again': 'Shkruaj përsëri PIN-in',
+      'pins_do_not_match': 'PIN-et nuk përputhen',
+      'incorrect_pin': 'PIN i pasaktë',
+      'minutes': 'minuta',
     },
     'ar': {
       'location': 'موقع',
@@ -35562,6 +35588,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'ID de transaction',
       'status_color_theme': 'Thème de couleur de statut',
       'load_color_theme': 'Charger le thème de couleur',
+      'app_locked': 'L\'application est verrouillée',
+      'enable_pin_lock': 'Activer le verrouillage par code PIN',
+      'enable_pin_lock_help': 'Exiger un code PIN pour déverrouiller l\'application',
+      'pin_lock_timeout': 'Délai de verrouillage du code PIN',
+      'pin_lock_timeout_help': 'Verrouiller l\'application après inactivité',
+      'change_pin': 'Changer le code PIN',
+      'enter_pin': 'Entrer le code PIN',
+      'enter_new_pin': 'Entrer le nouveau code PIN',
+      'confirm_pin': 'Confirmer le code PIN',
+      'enter_pin_again': 'Entrer le code PIN à nouveau',
+      'pins_do_not_match': 'Les codes PIN ne correspondent pas',
+      'incorrect_pin': 'Code PIN incorrect',
+      'minutes': 'minutes',
     },
     'fr_CA': {
       'location': 'Endroit',
@@ -99047,6 +99086,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'ID transakcije',
       'status_color_theme': 'Barvna tema stanja',
       'load_color_theme': 'Naloži barvno shemo',
+      'app_locked': 'Aplikacija je zaklenjena',
+      'enable_pin_lock': 'Omogoči PIN zaklepanje',
+      'enable_pin_lock_help': 'Zahtevaj PIN za odklepanje aplikacije',
+      'pin_lock_timeout': 'Časovna omejitev PIN zaklepanja',
+      'pin_lock_timeout_help': 'Zakleni aplikacijo po neaktivnosti',
+      'change_pin': 'Spremeni PIN',
+      'enter_pin': 'Vnesi PIN',
+      'enter_new_pin': 'Vnesi nov PIN',
+      'confirm_pin': 'Potrdi PIN',
+      'enter_pin_again': 'Vnesi PIN ponovno',
+      'pins_do_not_match': 'PIN kodi se ne ujemata',
+      'incorrect_pin': 'Napačen PIN',
+      'minutes': 'minut',
     },
     'es': {
       'location': 'Ubicación',
@@ -101862,6 +101914,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'ID de transacción',
       'status_color_theme': 'Tema de color de estado',
       'load_color_theme': 'Cargar tema de color',
+      'app_locked': 'La aplicación está bloqueada',
+      'enable_pin_lock': 'Activar bloqueo por PIN',
+      'enable_pin_lock_help': 'Requerir PIN para desbloquear la aplicación',
+      'pin_lock_timeout': 'Tiempo de espera del bloqueo por PIN',
+      'pin_lock_timeout_help': 'Bloquear la aplicación tras inactividad',
+      'change_pin': 'Cambiar PIN',
+      'enter_pin': 'Introducir PIN',
+      'enter_new_pin': 'Introducir nuevo PIN',
+      'confirm_pin': 'Confirmar PIN',
+      'enter_pin_again': 'Introducir PIN de nuevo',
+      'pins_do_not_match': 'Los PIN no coinciden',
+      'incorrect_pin': 'PIN incorrecto',
+      'minutes': 'minutos',
     },
     'es_ES': {
       'location': 'Ubicación',
@@ -104687,6 +104752,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'ID de Transacción',
       'status_color_theme': 'Tema de color de estado',
       'load_color_theme': 'Cargar color del tema',
+      'app_locked': 'La aplicación está bloqueada',
+      'enable_pin_lock': 'Activar bloqueo por PIN',
+      'enable_pin_lock_help': 'Requerir PIN para desbloquear la aplicación',
+      'pin_lock_timeout': 'Tiempo de espera del bloqueo por PIN',
+      'pin_lock_timeout_help': 'Bloquear la aplicación tras inactividad',
+      'change_pin': 'Cambiar PIN',
+      'enter_pin': 'Introducir PIN',
+      'enter_new_pin': 'Introducir nuevo PIN',
+      'confirm_pin': 'Confirmar PIN',
+      'enter_pin_again': 'Introducir PIN de nuevo',
+      'pins_do_not_match': 'Los PIN no coinciden',
+      'incorrect_pin': 'PIN incorrecto',
+      'minutes': 'minutos',
     },
     'sv': {
       'location': 'Position',
@@ -107432,6 +107510,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Transaktions ID',
       'status_color_theme': 'Status färgtema',
       'load_color_theme': 'Ladda färgtema',
+      'app_locked': 'Appen är låst',
+      'enable_pin_lock': 'Aktivera PIN-lås',
+      'enable_pin_lock_help': 'Kräv PIN för att låsa upp appen',
+      'pin_lock_timeout': 'PIN-lås timeout',
+      'pin_lock_timeout_help': 'Lås appen efter inaktivitet',
+      'change_pin': 'Ändra PIN',
+      'enter_pin': 'Ange PIN',
+      'enter_new_pin': 'Ange ny PIN',
+      'confirm_pin': 'Bekräfta PIN',
+      'enter_pin_again': 'Ange PIN igen',
+      'pins_do_not_match': 'PIN-koder matchar inte',
+      'incorrect_pin': 'Felaktig PIN',
+      'minutes': 'minuter',
     },
     'th': {
       'location': 'ตำแหน่ง',
@@ -110156,6 +110247,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Transaction ID',
       'status_color_theme': 'Status Color Theme',
       'load_color_theme': 'Load Color Theme',
+      'app_locked': 'แอปพลิเคชันถูกล็อค',
+      'enable_pin_lock': 'เปิดใช้งานการล็อค PIN',
+      'enable_pin_lock_help': 'ต้องการ PIN เพื่อปลดล็อคแอปพลิเคชัน',
+      'pin_lock_timeout': 'หมดเวลาล็อค PIN',
+      'pin_lock_timeout_help': 'ล็อคแอปพลิเคชันหลังจากไม่มีการใช้งาน',
+      'change_pin': 'เปลี่ยน PIN',
+      'enter_pin': 'ป้อน PIN',
+      'enter_new_pin': 'ป้อน PIN ใหม่',
+      'confirm_pin': 'ยืนยัน PIN',
+      'enter_pin_again': 'ป้อน PIN อีกครั้ง',
+      'pins_do_not_match': 'PIN ไม่ตรงกัน',
+      'incorrect_pin': 'PIN ไม่ถูกต้อง',
+      'minutes': 'นาที',
     },
     'tr_TR': {
       'location': 'Location',
@@ -112883,6 +112987,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Transaction ID',
       'status_color_theme': 'Status Color Theme',
       'load_color_theme': 'Load Color Theme',
+      'app_locked': 'Uygulama kilitli',
+      'enable_pin_lock': 'PIN Kilidi Etkinleştir',
+      'enable_pin_lock_help': 'Uygulamayı açmak için PIN gerektir',
+      'pin_lock_timeout': 'PIN Kilidi Zaman Aşımı',
+      'pin_lock_timeout_help': 'Hareketsizlikten sonra uygulamayı kilitle',
+      'change_pin': 'PIN Değiştir',
+      'enter_pin': 'PIN Gir',
+      'enter_new_pin': 'Yeni PIN Gir',
+      'confirm_pin': 'PIN Onayla',
+      'enter_pin_again': 'PIN\'i Tekrar Gir',
+      'pins_do_not_match': 'PIN\'ler eşleşmiyor',
+      'incorrect_pin': 'Yanlış PIN',
+      'minutes': 'dakika',
     },
     'vi': {
       'location': 'Vị trí',
@@ -115638,6 +115755,19 @@ mixin LocalizationsProvider on LocaleCodeAware {
       'transaction_id': 'Mã giao dịch',
       'status_color_theme': 'Chủ đề màu trạng thái',
       'load_color_theme': 'Tải chủ đề màu',
+      'app_locked': 'Ứng dụng đã bị khóa',
+      'enable_pin_lock': 'Bật khóa PIN',
+      'enable_pin_lock_help': 'Yêu cầu PIN để mở khóa ứng dụng',
+      'pin_lock_timeout': 'Thời gian chờ khóa PIN',
+      'pin_lock_timeout_help': 'Khóa ứng dụng sau khi không hoạt động',
+      'change_pin': 'Thay đổi PIN',
+      'enter_pin': 'Nhập PIN',
+      'enter_new_pin': 'Nhập PIN mới',
+      'confirm_pin': 'Xác nhận PIN',
+      'enter_pin_again': 'Nhập lại PIN',
+      'pins_do_not_match': 'PIN không khớp',
+      'incorrect_pin': 'PIN không đúng',
+      'minutes': 'phút',
     },
   };
 
@@ -122457,6 +122587,56 @@ mixin LocalizationsProvider on LocaleCodeAware {
   String get isShipping =>
       _localizedValues[localeCode]!['is_shipping'] ??
       _localizedValues['en']!['is_shipping']!;
+
+  String get appLocked =>
+    _localizedValues[localeCode]!['app_locked'] ??
+    _localizedValues['en']!['app_locked']!;
+
+  String get enablePinLock =>
+    _localizedValues[localeCode]!['enable_pin_lock'] ??
+    _localizedValues['en']!['enable_pin_lock']!;
+
+  String get enablePinLockHelp =>
+    _localizedValues[localeCode]!['enable_pin_lock_help'] ??
+    _localizedValues['en']!['enable_pin_lock_help']!;
+
+  String get pinLockTimeout =>
+    _localizedValues[localeCode]!['pin_lock_timeout'] ??
+    _localizedValues['en']!['pin_lock_timeout']!;
+  String get pinLockTimeoutHelp =>
+    _localizedValues[localeCode]!['pin_lock_timeout_help'] ??
+    _localizedValues['en']!['pin_lock_timeout_help']!;
+  String get changePin =>
+    _localizedValues[localeCode]!['change_pin'] ??
+    _localizedValues['en']!['change_pin']!;
+
+  String get enterPin =>
+    _localizedValues[localeCode]!['enter_pin'] ??
+    _localizedValues['en']!['enter_pin']!;
+
+  String get enterNewPin =>
+    _localizedValues[localeCode]!['enter_new_pin'] ??
+    _localizedValues['en']!['enter_new_pin']!;
+
+  String get confirmPin =>
+    _localizedValues[localeCode]!['confirm_pin'] ??
+    _localizedValues['en']!['confirm_pin']!;
+
+  String get enterPinAgain =>
+    _localizedValues[localeCode]!['enter_pin_again'] ??
+    _localizedValues['en']!['enter_pin_again']!;
+
+  String get pinsDoNotMatch =>
+    _localizedValues[localeCode]!['pins_do_not_match'] ??
+    _localizedValues['en']!['pins_do_not_match']!;
+
+  String get incorrectPin =>
+    _localizedValues[localeCode]!['incorrect_pin'] ??
+    _localizedValues['en']!['incorrect_pin']!;
+
+  String get minutes =>
+    _localizedValues[localeCode]!['minutes'] ??
+    _localizedValues['en']!['minutes']!;
 
   // STARTER: lang field - do not remove comment
 

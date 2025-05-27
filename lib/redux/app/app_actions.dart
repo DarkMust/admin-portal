@@ -191,6 +191,9 @@ class UpdateUserPreferences implements PersistPrefs {
     this.enableNativeBrowser,
     this.downloadsFolder,
     this.statementIncludes,
+    this.pinLockEnabled,
+    this.pinLockTimeout,
+    this.pinCode,
   });
 
   final AppLayout? appLayout;
@@ -223,6 +226,9 @@ class UpdateUserPreferences implements PersistPrefs {
   final bool? enableNativeBrowser;
   final String? downloadsFolder;
   final BuiltList<String>? statementIncludes;
+  final bool? pinLockEnabled;
+  final int? pinLockTimeout;
+  final String? pinCode;
 }
 
 class LoadAccountSuccess implements StopLoading {

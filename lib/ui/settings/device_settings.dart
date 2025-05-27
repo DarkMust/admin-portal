@@ -358,6 +358,37 @@ class _DeviceSettingsState extends State<DeviceSettings>
                     activeColor: Theme.of(context).colorScheme.secondary,
                     secondary: Icon(Icons.search),
                   ),
+                  SwitchListTile(
+                    title: Text(localization.enablePinLock),
+                    subtitle: Text(localization.enablePinLockHelp),
+                    value: prefState.pinLockEnabled,
+                    onChanged: (value) =>
+                        viewModel.onPinLockEnabledChanged(context, value),
+                    activeColor: Theme.of(context).colorScheme.secondary,
+                    secondary: Icon(MdiIcons.lock),
+                  ),
+                  if (prefState.pinLockEnabled) ...[
+                    ListTile(
+                      title: Text(localization.pinLockTimeout),
+                      subtitle: Text(localization.pinLockTimeoutHelp),
+                      trailing: DropdownButton<int>(
+                        value: prefState.pinLockTimeout,
+                        items: [5, 10, 15, 30, 60].map((minutes) {
+                          return DropdownMenuItem<int>(
+                            value: minutes,
+                            child: Text('$minutes ${localization.minutes}'),
+                          );
+                        }).toList(),
+                        onChanged: (value) => viewModel.onPinLockTimeoutChanged(
+                            context, value ?? 10),
+                      ),
+                    ),
+                    ListTile(
+                      title: Text(localization.changePin),
+                      trailing: Icon(Icons.arrow_forward_ios),
+                      onTap: () => viewModel.onChangePinPressed(context),
+                    ),
+                  ],
                   if (isDesktop(context)) ...[
                     SwitchListTile(
                       title: Text(localization.enableTouchEvents),

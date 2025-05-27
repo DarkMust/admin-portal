@@ -241,6 +241,15 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
             const FullType(String),
             const FullType(CompanyPrefState)
           ])),
+      'pinLockEnabled',
+      serializers.serialize(object.pinLockEnabled,
+          specifiedType: const FullType(bool)),
+      'pinLockTimeout',
+      serializers.serialize(object.pinLockTimeout,
+          specifiedType: const FullType(int)),
+      'pinCode',
+      serializers.serialize(object.pinCode,
+          specifiedType: const FullType(String)),
     ];
 
     return result;
@@ -424,6 +433,18 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
                 const FullType(String),
                 const FullType(CompanyPrefState)
               ]))!);
+          break;
+        case 'pinLockEnabled':
+          result.pinLockEnabled = serializers.deserialize(value,
+              specifiedType: const FullType(bool))! as bool;
+          break;
+        case 'pinLockTimeout':
+          result.pinLockTimeout = serializers.deserialize(value,
+              specifiedType: const FullType(int))! as int;
+          break;
+        case 'pinCode':
+          result.pinCode = serializers.deserialize(value,
+              specifiedType: const FullType(String))! as String;
           break;
       }
     }
@@ -744,6 +765,12 @@ class _$PrefState extends PrefState {
   final BuiltMap<EntityType, PrefStateSortField> sortFields;
   @override
   final BuiltMap<String, CompanyPrefState> companyPrefs;
+  @override
+  final bool pinLockEnabled;
+  @override
+  final int pinLockTimeout;
+  @override
+  final String pinCode;
 
   factory _$PrefState([void Function(PrefStateBuilder)? updates]) =>
       (new PrefStateBuilder()..update(updates))._build();
@@ -787,7 +814,10 @@ class _$PrefState extends PrefState {
       required this.textScaleFactor,
       required this.donwloadsFolder,
       required this.sortFields,
-      required this.companyPrefs})
+      required this.companyPrefs,
+      required this.pinLockEnabled,
+      required this.pinLockTimeout,
+      required this.pinCode})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(appLayout, r'PrefState', 'appLayout');
     BuiltValueNullFieldError.checkNotNull(
@@ -866,6 +896,12 @@ class _$PrefState extends PrefState {
         sortFields, r'PrefState', 'sortFields');
     BuiltValueNullFieldError.checkNotNull(
         companyPrefs, r'PrefState', 'companyPrefs');
+    BuiltValueNullFieldError.checkNotNull(
+        pinLockEnabled, r'PrefState', 'pinLockEnabled');
+    BuiltValueNullFieldError.checkNotNull(
+        pinLockTimeout, r'PrefState', 'pinLockTimeout');
+    BuiltValueNullFieldError.checkNotNull(
+        pinCode, r'PrefState', 'pinCode');
   }
 
   @override
@@ -917,7 +953,10 @@ class _$PrefState extends PrefState {
         textScaleFactor == other.textScaleFactor &&
         donwloadsFolder == other.donwloadsFolder &&
         sortFields == other.sortFields &&
-        companyPrefs == other.companyPrefs;
+        companyPrefs == other.companyPrefs &&
+        pinLockEnabled == other.pinLockEnabled &&
+        pinLockTimeout == other.pinLockTimeout &&
+        pinCode == other.pinCode;
   }
 
   int? __hashCode;
@@ -964,6 +1003,9 @@ class _$PrefState extends PrefState {
     _$hash = $jc(_$hash, donwloadsFolder.hashCode);
     _$hash = $jc(_$hash, sortFields.hashCode);
     _$hash = $jc(_$hash, companyPrefs.hashCode);
+    _$hash = $jc(_$hash, pinLockEnabled.hashCode);
+    _$hash = $jc(_$hash, pinLockTimeout.hashCode);
+    _$hash = $jc(_$hash, pinCode.hashCode);
     _$hash = $jf(_$hash);
     return __hashCode ??= _$hash;
   }
@@ -1009,7 +1051,10 @@ class _$PrefState extends PrefState {
           ..add('textScaleFactor', textScaleFactor)
           ..add('donwloadsFolder', donwloadsFolder)
           ..add('sortFields', sortFields)
-          ..add('companyPrefs', companyPrefs))
+          ..add('companyPrefs', companyPrefs)
+          ..add('pinLockEnabled', pinLockEnabled)
+          ..add('pinLockTimeout', pinLockTimeout)
+          ..add('pinCode', pinCode))
         .toString();
   }
 }
@@ -1213,6 +1258,18 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
   set companyPrefs(MapBuilder<String, CompanyPrefState>? companyPrefs) =>
       _$this._companyPrefs = companyPrefs;
 
+  bool? _pinLockEnabled;
+  bool? get pinLockEnabled => _$this._pinLockEnabled;
+  set pinLockEnabled(bool? pinLockEnabled) => _$this._pinLockEnabled = pinLockEnabled;
+
+  int? _pinLockTimeout;
+  int? get pinLockTimeout => _$this._pinLockTimeout;
+  set pinLockTimeout(int? pinLockTimeout) => _$this._pinLockTimeout = pinLockTimeout;
+
+  String? _pinCode;
+  String? get pinCode => _$this._pinCode;
+  set pinCode(String? pinCode) => _$this._pinCode = pinCode;
+
   PrefStateBuilder() {
     PrefState._initializeBuilder(this);
   }
@@ -1259,6 +1316,9 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
       _donwloadsFolder = $v.donwloadsFolder;
       _sortFields = $v.sortFields.toBuilder();
       _companyPrefs = $v.companyPrefs.toBuilder();
+      _pinLockEnabled = $v.pinLockEnabled;
+      _pinLockTimeout = $v.pinLockTimeout;
+      _pinCode = $v.pinCode;
       _$v = null;
     }
     return this;
@@ -1329,7 +1389,10 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
               textScaleFactor: BuiltValueNullFieldError.checkNotNull(textScaleFactor, r'PrefState', 'textScaleFactor'),
               donwloadsFolder: BuiltValueNullFieldError.checkNotNull(donwloadsFolder, r'PrefState', 'donwloadsFolder'),
               sortFields: sortFields.build(),
-              companyPrefs: companyPrefs.build());
+              companyPrefs: companyPrefs.build(),
+              pinLockEnabled: BuiltValueNullFieldError.checkNotNull(pinLockEnabled, r'PrefState', 'pinLockEnabled'),
+              pinLockTimeout: BuiltValueNullFieldError.checkNotNull(pinLockTimeout, r'PrefState', 'pinLockTimeout'),
+              pinCode: BuiltValueNullFieldError.checkNotNull(pinCode, r'PrefState', 'pinCode'));
     } catch (_) {
       late String _$failedField;
       try {

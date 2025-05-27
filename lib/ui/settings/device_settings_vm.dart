@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 // Package imports:
 import 'package:built_collection/built_collection.dart';
 import 'package:flutter_redux/flutter_redux.dart';
+import 'package:invoiceninja_flutter/ui/auth/pin_setup_dialog.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:redux/redux.dart';
 
@@ -62,35 +63,38 @@ class DeviceSettingsVM {
     required this.onEnableTooltipsChanged,
     required this.onEnableFlexibleSearchChanged,
     required this.onDownloadsFolderChanged,
+    required this.onPinLockEnabledChanged,
+    required this.onPinLockTimeoutChanged,
+    required this.onChangePinPressed,
   });
 
   static DeviceSettingsVM fromStore(Store<AppState> store) {
+    final state = store.state;
+
     return DeviceSettingsVM(
-      state: store.state,
-      onRefreshTap: (BuildContext context) =>
-          showRefreshDataDialog(context: context, includeStatic: true),
-      onLogoutTap: (BuildContext context) {
-        final completer = snackBarCompleter<Null>(
-            AppLocalization.of(context)!.endedAllSessions);
-        store.dispatch(UserLogoutAll(completer: completer));
+      state: state,
+      onRefreshTap: (context) {
+        store.dispatch(RefreshData());
       },
-      onDarkModeChanged: (BuildContext context, String value) async {
+      onLogoutTap: (context) {
+        store.dispatch(UserLogout());
+      },
+      onDarkModeChanged: (context, value) {
         store.dispatch(UpdateUserPreferences(darkModeType: value));
-        AppBuilder.of(context)!.rebuild();
       },
-      onLongPressSelectionIsDefault: (BuildContext context, bool value) async {
+      onLongPressSelectionIsDefault: (context, value) async {
         store.dispatch(
             UpdateUserPreferences(longPressSelectionIsDefault: value));
       },
       onMenuModeChanged: (context, value) async {
-        if (store.state.prefState.menuSidebarMode == value) {
+        if (state.prefState.menuSidebarMode == value) {
           return;
         }
 
         store.dispatch(UpdateUserPreferences(menuMode: value));
       },
       onHistoryModeChanged: (context, value) async {
-        if (store.state.prefState.historySidebarMode == value) {
+        if (state.prefState.historySidebarMode == value) {
           return;
         }
 
@@ -125,8 +129,39 @@ class DeviceSettingsVM {
       onEnableFlexibleSearchChanged: (context, value) {
         store.dispatch(UpdateUserPreferences(flexibleSearch: value));
       },
+      onPinLockEnabledChanged: (context, value) async {
+        if (value) {
+          // Show PIN setup dialog when enabling PIN lock
+          final pin = await showDialog<String>(
+            context: context,
+            builder: (context) => PinSetupDialog(),
+          );
+          if (pin != null) {
+            store.dispatch(UpdateUserPreferences(
+              pinLockEnabled: true,
+              pinCode: pin,
+            ));
+          }
+        } else {
+          store.dispatch(UpdateUserPreferences(pinLockEnabled: false));
+        }
+      },
+      onPinLockTimeoutChanged: (context, value) {
+        store.dispatch(UpdateUserPreferences(pinLockTimeout: value));
+      },
+      onChangePinPressed: (context) async {
+        final pin = await showDialog<String>(
+          context: context,
+          builder: (context) => PinSetupDialog(
+            currentPin: state.prefState.pinCode,
+          ),
+        );
+        if (pin != null) {
+          store.dispatch(UpdateUserPreferences(pinCode: pin));
+        }
+      },
       onColorThemeChanged: (context, value) async {
-        final prefState = store.state.prefState;
+        final prefState = state.prefState;
         if (prefState.enableDarkMode) {
           if (prefState.darkColorTheme != value) {
             store.dispatch(UpdateUserPreferences(darkColorTheme: value));
@@ -141,7 +176,7 @@ class DeviceSettingsVM {
         store.dispatch(UpdateUserPreferences(editAfterSaving: value));
       },
       onLayoutChanged: (BuildContext context, AppLayout value) async {
-        if (store.state.prefState.appLayout == value) {
+        if (state.prefState.appLayout == value) {
           return;
         }
         store.dispatch(UpdateUserPreferences(appLayout: value));
@@ -186,7 +221,7 @@ class DeviceSettingsVM {
         },
       ),
       onCustomColorsChanged: (context, customColors) {
-        if (store.state.prefState.enableDarkMode) {
+        if (state.prefState.enableDarkMode) {
           store.dispatch(UpdateUserPreferences(darkCustomColors: customColors));
         } else {
           store.dispatch(UpdateUserPreferences(customColors: customColors));
@@ -224,6 +259,9 @@ class DeviceSettingsVM {
   final Function(BuildContext, bool) onEnableTouchEventsChanged;
   final Function(BuildContext, bool) onEnableTooltipsChanged;
   final Function(BuildContext, bool) onEnableFlexibleSearchChanged;
+  final Function(BuildContext, bool) onPinLockEnabledChanged;
+  final Function(BuildContext, int) onPinLockTimeoutChanged;
+  final Function(BuildContext) onChangePinPressed;
   final Function(BuildContext, double) onTextScaleFactorChanged;
   final Function(BuildContext, String) onDownloadsFolderChanged;
   final Future<bool> authenticationSupported;

@@ -111,7 +111,10 @@ PrefState prefReducer(
         enableTouchEventsReducer(state.enableTouchEvents, action)
     ..showPdfPreview = showPdfPreviewReducer(state.showPdfPreview, action)
     ..showPdfPreviewSideBySide = showPdfPreviewSideBySideReducer(
-        state.showPdfPreviewSideBySide, action));
+        state.showPdfPreviewSideBySide, action)
+    ..pinLockEnabled = pinLockEnabledReducer(state.pinLockEnabled, action)
+    ..pinLockTimeout = pinLockTimeoutReducer(state.pinLockTimeout, action)
+    ..pinCode = pinCodeReducer(state.pinCode, action));
 }
 
 BuiltMap<EntityType, PrefStateSortField> _resortFields(
@@ -516,6 +519,24 @@ Reducer<String> previousRouteReducer = combineReducers([
 Reducer<int> selectedCompanyIndexReducer = combineReducers([
   TypedReducer<int, SelectCompany>((selectedCompanyIndex, action) {
     return action.companyIndex;
+  }),
+]);
+
+Reducer<bool> pinLockEnabledReducer = combineReducers([
+  TypedReducer<bool, UpdateUserPreferences>((value, action) {
+    return action.pinLockEnabled ?? value;
+  }),
+]);
+
+Reducer<int> pinLockTimeoutReducer = combineReducers([
+  TypedReducer<int, UpdateUserPreferences>((value, action) {
+    return action.pinLockTimeout ?? value;
+  }),
+]);
+
+Reducer<String> pinCodeReducer = combineReducers([
+  TypedReducer<String, UpdateUserPreferences>((value, action) {
+    return action.pinCode ?? value;
   }),
 ]);
 

@@ -13,6 +13,7 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
 import 'package:invoiceninja_flutter/ui/app/important_message_banner.dart';
 import 'package:invoiceninja_flutter/ui/app/window_manager.dart';
+import 'package:invoiceninja_flutter/ui/auth/pin_lock_screen.dart';
 import 'package:invoiceninja_flutter/ui/bank_account/edit/bank_account_edit_vm.dart';
 import 'package:invoiceninja_flutter/ui/purchase_order/purchase_order_email_vm.dart';
 import 'package:invoiceninja_flutter/ui/purchase_order/purchase_order_pdf_vm.dart';
@@ -145,8 +146,10 @@ class InvoiceNinjaApp extends StatefulWidget {
   InvoiceNinjaAppState createState() => InvoiceNinjaAppState();
 }
 
-class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
+class InvoiceNinjaAppState extends State<InvoiceNinjaApp> with WidgetsBindingObserver {
   bool _authenticated = false;
+  Timer? _pinLockTimer;
+  DateTime? _lastUserActivity;
 
   Future<Null> _authenticate() async {
     bool authenticated = false;
@@ -172,6 +175,8 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _resetPinLockTimer();
 
     if (kIsWeb) {
       WebUtils.warnChanges(widget.store);
@@ -200,27 +205,81 @@ class InvoiceNinjaAppState extends State<InvoiceNinjaApp> {
     });
   }
 
-  /*
   @override
-  void initState() {
-    super.initState();
-
-    const QuickActions quickActions = QuickActions();
-    quickActions.initialize((String shortcutType) {
-      if (shortcutType == 'action_new_client') {
-        widget.store
-            .dispatch(EditClient(context: context, client: ClientEntity()));
-      }
-    });
-
-    quickActions.setShortcutItems(<ShortcutItem>[
-      const ShortcutItem(
-          type: 'action_new_client',
-          localizedTitle: 'New Client',
-          icon: 'AppIcon'),
-    ]);
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _pinLockTimer?.cancel();
+    super.dispose();
   }
-  */
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _checkPinLock();
+    }
+  }
+
+  void _resetPinLockTimer() {
+    _pinLockTimer?.cancel();
+    _lastUserActivity = DateTime.now();
+
+    if (mounted) {
+      final store = StoreProvider.of<AppState>(context);
+      if (store.state.prefState.pinLockEnabled) {
+        _pinLockTimer = Timer.periodic(
+          Duration(seconds: 1),
+          (timer) {
+            final now = DateTime.now();
+            final timeout = store.state.prefState.pinLockTimeout * 60;
+            if (now.difference(_lastUserActivity!).inSeconds >= timeout) {
+              _showPinLockScreen();
+            }
+          },
+        );
+      }
+    }
+  }
+
+  void _checkPinLock() {
+    if (mounted) {
+      final store = StoreProvider.of<AppState>(context);
+      if (store.state.prefState.pinLockEnabled) {
+        final now = DateTime.now();
+        final timeout = store.state.prefState.pinLockTimeout * 60;
+        if (now.difference(_lastUserActivity!).inSeconds >= timeout) {
+          _showPinLockScreen();
+        }
+      }
+    }
+  }
+
+  void _showPinLockScreen() {
+    if (mounted) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => PinLockScreen(
+          onPinEntered: (pin) {
+            final store = StoreProvider.of<AppState>(context);
+            if (pin == store.state.prefState.pinCode) {
+              Navigator.of(context).pop();
+              _resetPinLockTimer();
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(AppLocalization.of(context)!.incorrectPin),
+                ),
+              );
+            }
+          },
+          onCancel: () {
+            Navigator.of(context).pop();
+            _resetPinLockTimer();
+          },
+        ),
+      );
+    }
+  }
 
   @override
   void didChangeDependencies() {

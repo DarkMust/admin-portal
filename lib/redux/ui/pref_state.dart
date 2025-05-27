@@ -54,6 +54,9 @@ abstract class PrefState implements Built<PrefState, PrefStateBuilder> {
       sortFields: BuiltMap<EntityType, PrefStateSortField>(),
       customColors: BuiltMap<String, String>(CONTRAST_COLORS),
       darkCustomColors: BuiltMap<String, String>(),
+      pinLockEnabled: false,
+      pinLockTimeout: 10,
+      pinCode: '',
     );
   }
 
@@ -177,6 +180,12 @@ abstract class PrefState implements Built<PrefState, PrefStateBuilder> {
 
   BuiltMap<EntityType, PrefStateSortField> get sortFields;
 
+  bool get pinLockEnabled;
+
+  int get pinLockTimeout;
+
+  String get pinCode;
+
   bool get enableDarkMode => darkModeType == kBrightnessSytem
       ? enableDarkModeSystem
       : darkModeType == kBrightnessDark;
@@ -285,7 +294,10 @@ abstract class PrefState implements Built<PrefState, PrefStateBuilder> {
     ..darkColorTheme = kColorThemeDark
     ..enableDarkModeSystem = false
     ..donwloadsFolder = ''
-    ..hideTaskExtensionBanner = false;
+    ..hideTaskExtensionBanner = false
+    ..pinLockEnabled = false
+    ..pinLockTimeout = 10
+    ..pinCode = '';
 
   static Serializer<PrefState> get serializer => _$prefStateSerializer;
 }
