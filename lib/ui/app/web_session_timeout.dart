@@ -1,5 +1,6 @@
 // Dart imports:
 import 'dart:async';
+import 'dart:html' as html;
 
 // Flutter imports:
 import 'package:flutter/foundation.dart';
@@ -17,9 +18,10 @@ import 'package:invoiceninja_flutter/utils/web_stub.dart'
     if (dart.library.html) 'package:invoiceninja_flutter/utils/web.dart';
 
 class WebSessionTimeout extends StatefulWidget {
-  const WebSessionTimeout({this.child});
+  const WebSessionTimeout({this.child, this.onUserActivity});
 
   final Widget? child;
+  final VoidCallback? onUserActivity;
 
   @override
   _WebSessionTimeoutState createState() => _WebSessionTimeoutState();
@@ -35,6 +37,12 @@ class _WebSessionTimeoutState extends State<WebSessionTimeout> {
     if (!kIsWeb) {
       return;
     }
+
+    // Add event listeners for user activity on web
+    html.window.document.addEventListener('mousemove', _handleUserActivity);
+    html.window.document.addEventListener('mousedown', _handleUserActivity);
+    html.window.document.addEventListener('keydown', _handleUserActivity);
+    html.window.document.addEventListener('scroll', _handleUserActivity);
 
     _timer = Timer.periodic(
       Duration(minutes: 1),
@@ -57,10 +65,25 @@ class _WebSessionTimeoutState extends State<WebSessionTimeout> {
     );
   }
 
+  void _handleUserActivity(html.Event event) {
+    // Call the provided callback to reset the pin lock timer
+    print('WebSessionTimeout: User activity detected - ${event.type}');
+    widget.onUserActivity?.call();
+  }
+
   @override
   void dispose() {
     _timer?.cancel();
     _timer = null;
+
+    // Remove event listeners
+    if (kIsWeb) {
+      html.window.document.removeEventListener('mousemove', _handleUserActivity);
+      html.window.document.removeEventListener('mousedown', _handleUserActivity);
+      html.window.document.removeEventListener('keydown', _handleUserActivity);
+      html.window.document.removeEventListener('scroll', _handleUserActivity);
+    }
+
     super.dispose();
   }
 

@@ -18,6 +18,7 @@ class _PinSetupDialogState extends State<PinSetupDialog> {
   String? _firstPin;
   String? _secondPin;
   bool _isConfirming = false;
+  final _pinController = TextEditingController();
 
   void _onPinEntered(String pin) {
     if (!_isConfirming) {
@@ -25,6 +26,7 @@ class _PinSetupDialogState extends State<PinSetupDialog> {
         _firstPin = pin;
         _isConfirming = true;
       });
+      _pinController.clear();
     } else {
       if (pin == _firstPin) {
         Navigator.of(context).pop(pin);
@@ -33,6 +35,7 @@ class _PinSetupDialogState extends State<PinSetupDialog> {
           _isConfirming = false;
           _firstPin = null;
         });
+        _pinController.clear();
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(AppLocalization.of(context)!.pinsDoNotMatch),
@@ -40,6 +43,12 @@ class _PinSetupDialogState extends State<PinSetupDialog> {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _pinController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,6 +65,7 @@ class _PinSetupDialogState extends State<PinSetupDialog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           AppPinput(
+            controller: _pinController,
             onCompleted: _onPinEntered,
           ),
           if (_isConfirming)

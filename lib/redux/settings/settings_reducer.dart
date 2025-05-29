@@ -36,7 +36,7 @@ Reducer<SettingsUIState> settingsUIReducer = combineReducers([
           ? EntityType.client
           : action.group != null
               ? EntityType.group
-              : state.entityType);
+              : EntityType.company);
   }),
   TypedReducer<SettingsUIState, UpdateCompany>((state, action) {
     return state.rebuild((b) => b

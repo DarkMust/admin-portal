@@ -3,9 +3,10 @@ import 'package:invoiceninja_flutter/utils/localization.dart';
 import 'package:pinput/pinput.dart';
 
 class AppPinput extends StatelessWidget {
-  const AppPinput({Key? key, this.onCompleted}) : super(key: key);
+  const AppPinput({Key? key, this.onCompleted, this.controller}) : super(key: key);
 
-  final ValueChanged<String>? onCompleted;
+  final void Function(String)? onCompleted;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,10 @@ class AppPinput extends StatelessWidget {
 
     return Pinput(
       onCompleted: onCompleted,
+      controller: controller,
       autofocus: true,
       length: 6,
       showCursor: true,
-      androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
       validator: (value) =>
           value!.isEmpty ? localization.pleaseEnterACode : null,
     );

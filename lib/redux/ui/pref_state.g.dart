@@ -235,12 +235,6 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
             const FullType(EntityType),
             const FullType(PrefStateSortField)
           ])),
-      'companyPrefs',
-      serializers.serialize(object.companyPrefs,
-          specifiedType: const FullType(BuiltMap, const [
-            const FullType(String),
-            const FullType(CompanyPrefState)
-          ])),
       'pinLockEnabled',
       serializers.serialize(object.pinLockEnabled,
           specifiedType: const FullType(bool)),
@@ -250,6 +244,12 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
       'pinCode',
       serializers.serialize(object.pinCode,
           specifiedType: const FullType(String)),
+      'companyPrefs',
+      serializers.serialize(object.companyPrefs,
+          specifiedType: const FullType(BuiltMap, const [
+            const FullType(String),
+            const FullType(CompanyPrefState)
+          ])),
     ];
 
     return result;
@@ -427,13 +427,6 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
                 const FullType(PrefStateSortField)
               ]))!);
           break;
-        case 'companyPrefs':
-          result.companyPrefs.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltMap, const [
-                const FullType(String),
-                const FullType(CompanyPrefState)
-              ]))!);
-          break;
         case 'pinLockEnabled':
           result.pinLockEnabled = serializers.deserialize(value,
               specifiedType: const FullType(bool))! as bool;
@@ -445,6 +438,13 @@ class _$PrefStateSerializer implements StructuredSerializer<PrefState> {
         case 'pinCode':
           result.pinCode = serializers.deserialize(value,
               specifiedType: const FullType(String))! as String;
+          break;
+        case 'companyPrefs':
+          result.companyPrefs.replace(serializers.deserialize(value,
+              specifiedType: const FullType(BuiltMap, const [
+                const FullType(String),
+                const FullType(CompanyPrefState)
+              ]))!);
           break;
       }
     }
@@ -764,13 +764,13 @@ class _$PrefState extends PrefState {
   @override
   final BuiltMap<EntityType, PrefStateSortField> sortFields;
   @override
-  final BuiltMap<String, CompanyPrefState> companyPrefs;
-  @override
   final bool pinLockEnabled;
   @override
   final int pinLockTimeout;
   @override
   final String pinCode;
+  @override
+  final BuiltMap<String, CompanyPrefState> companyPrefs;
 
   factory _$PrefState([void Function(PrefStateBuilder)? updates]) =>
       (new PrefStateBuilder()..update(updates))._build();
@@ -814,10 +814,10 @@ class _$PrefState extends PrefState {
       required this.textScaleFactor,
       required this.donwloadsFolder,
       required this.sortFields,
-      required this.companyPrefs,
       required this.pinLockEnabled,
       required this.pinLockTimeout,
-      required this.pinCode})
+      required this.pinCode,
+      required this.companyPrefs})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(appLayout, r'PrefState', 'appLayout');
     BuiltValueNullFieldError.checkNotNull(
@@ -895,13 +895,12 @@ class _$PrefState extends PrefState {
     BuiltValueNullFieldError.checkNotNull(
         sortFields, r'PrefState', 'sortFields');
     BuiltValueNullFieldError.checkNotNull(
-        companyPrefs, r'PrefState', 'companyPrefs');
-    BuiltValueNullFieldError.checkNotNull(
         pinLockEnabled, r'PrefState', 'pinLockEnabled');
     BuiltValueNullFieldError.checkNotNull(
         pinLockTimeout, r'PrefState', 'pinLockTimeout');
+    BuiltValueNullFieldError.checkNotNull(pinCode, r'PrefState', 'pinCode');
     BuiltValueNullFieldError.checkNotNull(
-        pinCode, r'PrefState', 'pinCode');
+        companyPrefs, r'PrefState', 'companyPrefs');
   }
 
   @override
@@ -953,10 +952,10 @@ class _$PrefState extends PrefState {
         textScaleFactor == other.textScaleFactor &&
         donwloadsFolder == other.donwloadsFolder &&
         sortFields == other.sortFields &&
-        companyPrefs == other.companyPrefs &&
         pinLockEnabled == other.pinLockEnabled &&
         pinLockTimeout == other.pinLockTimeout &&
-        pinCode == other.pinCode;
+        pinCode == other.pinCode &&
+        companyPrefs == other.companyPrefs;
   }
 
   int? __hashCode;
@@ -1002,10 +1001,10 @@ class _$PrefState extends PrefState {
     _$hash = $jc(_$hash, textScaleFactor.hashCode);
     _$hash = $jc(_$hash, donwloadsFolder.hashCode);
     _$hash = $jc(_$hash, sortFields.hashCode);
-    _$hash = $jc(_$hash, companyPrefs.hashCode);
     _$hash = $jc(_$hash, pinLockEnabled.hashCode);
     _$hash = $jc(_$hash, pinLockTimeout.hashCode);
     _$hash = $jc(_$hash, pinCode.hashCode);
+    _$hash = $jc(_$hash, companyPrefs.hashCode);
     _$hash = $jf(_$hash);
     return __hashCode ??= _$hash;
   }
@@ -1051,10 +1050,10 @@ class _$PrefState extends PrefState {
           ..add('textScaleFactor', textScaleFactor)
           ..add('donwloadsFolder', donwloadsFolder)
           ..add('sortFields', sortFields)
-          ..add('companyPrefs', companyPrefs)
           ..add('pinLockEnabled', pinLockEnabled)
           ..add('pinLockTimeout', pinLockTimeout)
-          ..add('pinCode', pinCode))
+          ..add('pinCode', pinCode)
+          ..add('companyPrefs', companyPrefs))
         .toString();
   }
 }
@@ -1252,23 +1251,25 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
   set sortFields(MapBuilder<EntityType, PrefStateSortField>? sortFields) =>
       _$this._sortFields = sortFields;
 
+  bool? _pinLockEnabled;
+  bool? get pinLockEnabled => _$this._pinLockEnabled;
+  set pinLockEnabled(bool? pinLockEnabled) =>
+      _$this._pinLockEnabled = pinLockEnabled;
+
+  int? _pinLockTimeout;
+  int? get pinLockTimeout => _$this._pinLockTimeout;
+  set pinLockTimeout(int? pinLockTimeout) =>
+      _$this._pinLockTimeout = pinLockTimeout;
+
+  String? _pinCode;
+  String? get pinCode => _$this._pinCode;
+  set pinCode(String? pinCode) => _$this._pinCode = pinCode;
+
   MapBuilder<String, CompanyPrefState>? _companyPrefs;
   MapBuilder<String, CompanyPrefState> get companyPrefs =>
       _$this._companyPrefs ??= new MapBuilder<String, CompanyPrefState>();
   set companyPrefs(MapBuilder<String, CompanyPrefState>? companyPrefs) =>
       _$this._companyPrefs = companyPrefs;
-
-  bool? _pinLockEnabled;
-  bool? get pinLockEnabled => _$this._pinLockEnabled;
-  set pinLockEnabled(bool? pinLockEnabled) => _$this._pinLockEnabled = pinLockEnabled;
-
-  int? _pinLockTimeout;
-  int? get pinLockTimeout => _$this._pinLockTimeout;
-  set pinLockTimeout(int? pinLockTimeout) => _$this._pinLockTimeout = pinLockTimeout;
-
-  String? _pinCode;
-  String? get pinCode => _$this._pinCode;
-  set pinCode(String? pinCode) => _$this._pinCode = pinCode;
 
   PrefStateBuilder() {
     PrefState._initializeBuilder(this);
@@ -1315,10 +1316,10 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
       _textScaleFactor = $v.textScaleFactor;
       _donwloadsFolder = $v.donwloadsFolder;
       _sortFields = $v.sortFields.toBuilder();
-      _companyPrefs = $v.companyPrefs.toBuilder();
       _pinLockEnabled = $v.pinLockEnabled;
       _pinLockTimeout = $v.pinLockTimeout;
       _pinCode = $v.pinCode;
+      _companyPrefs = $v.companyPrefs.toBuilder();
       _$v = null;
     }
     return this;
@@ -1389,10 +1390,10 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
               textScaleFactor: BuiltValueNullFieldError.checkNotNull(textScaleFactor, r'PrefState', 'textScaleFactor'),
               donwloadsFolder: BuiltValueNullFieldError.checkNotNull(donwloadsFolder, r'PrefState', 'donwloadsFolder'),
               sortFields: sortFields.build(),
-              companyPrefs: companyPrefs.build(),
               pinLockEnabled: BuiltValueNullFieldError.checkNotNull(pinLockEnabled, r'PrefState', 'pinLockEnabled'),
               pinLockTimeout: BuiltValueNullFieldError.checkNotNull(pinLockTimeout, r'PrefState', 'pinLockTimeout'),
-              pinCode: BuiltValueNullFieldError.checkNotNull(pinCode, r'PrefState', 'pinCode'));
+              pinCode: BuiltValueNullFieldError.checkNotNull(pinCode, r'PrefState', 'pinCode'),
+              companyPrefs: companyPrefs.build());
     } catch (_) {
       late String _$failedField;
       try {
@@ -1409,6 +1410,7 @@ class PrefStateBuilder implements Builder<PrefState, PrefStateBuilder> {
 
         _$failedField = 'sortFields';
         sortFields.build();
+
         _$failedField = 'companyPrefs';
         companyPrefs.build();
       } catch (e) {

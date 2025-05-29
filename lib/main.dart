@@ -6,6 +6,8 @@ import 'dart:io';
 // Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 // Package imports:
 import 'package:redux/redux.dart';
@@ -197,7 +199,12 @@ void main({bool isTesting = false}) async {
               ]));
 
   if (!kReleaseMode) {
-    runApp(InvoiceNinjaApp(store: store));
+    runApp(
+      StoreProvider<AppState>(
+        store: store,
+        child: InvoiceNinjaApp(store: store),
+      ),
+    );
   } else {
     await SentryFlutter.init(
       (options) {
@@ -223,9 +230,14 @@ void main({bool isTesting = false}) async {
             },
             */
           );
-        };
+        } as BeforeSendCallback?;
       },
-      appRunner: () => runApp(InvoiceNinjaApp(store: store)),
+      appRunner: () => runApp(
+        StoreProvider<AppState>(
+          store: store,
+          child: InvoiceNinjaApp(store: store),
+        ),
+      ),
     );
   }
 
